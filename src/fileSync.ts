@@ -1,8 +1,10 @@
 import * as vscode from 'vscode';
 
 interface Destination {
+	sourceStartPath: string;
 	path: string;
 	name: string;
+	ignoreNames: string;
 	active: boolean;
 }
 
@@ -66,7 +68,11 @@ export class FileSync {
 		context.subscriptions.push(vscode.commands.registerCommand('filesync.enable', this.enable, this));
 		// Register Disable command.
 		context.subscriptions.push(vscode.commands.registerCommand('filesync.disable', this.disable, this));
+		// // Register Test command.
+		// context.subscriptions.push(vscode.commands.registerCommand('filesync.test', this.disableNenable, this));
 	}
+
+	// disableNenable() { this.disable(); this.enable(); }
 
 	enable() {
 		if(!this.enabled){
@@ -91,7 +97,7 @@ export class FileSync {
 		this.log(`Checking ${root}...`);
 
 		//Look for mapping.
-		let map = this.mappings().find(m => m.source.toLowerCase() === root.toLowerCase());
+		let map = this.mappings().find(m => m.source.toLowerCase().startsWith(root.toLowerCase()));
 		if(map){
 			//Mapping found, enable FileSync for map.
 			let save = vscode.workspace.onDidSaveTextDocument((file) => { if(map){ this.syncSave(map, file); } });
@@ -138,8 +144,8 @@ export class FileSync {
 						//Simple Destination
 						this.syncFile(file, vscode.Uri.file(dest + filePath));
 
-					} else if(dest.active) {
-						//Complex Destination
+					} else if (dest.active && file.fileName.toLowerCase().startsWith(map.source.toLowerCase() + dest.sourceStartPath.toLowerCase())) {
+						filePath = file.fileName.substr((map.source + dest.sourceStartPath).length);
 						this.syncFile(file, vscode.Uri.file(dest.path + filePath));
 					}
 				}

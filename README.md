@@ -58,8 +58,10 @@ None.
   * **simple**: *String* - Path of folder to keep in sync with workspace folder (`source`).
   * **complex**: *Object* - Defines a ``path``, ``name`` and if destination is ``active`` or disabled.
     * ``path``: *String* - Path of folder to keep in sync with workspace folder (`source`).
+    * ``sourceStartPath``: *String* - Starting location of the workspace folder (`source`) wich has to be considered for sync.
     * ``name``: *String* - Name of destination.
     * ``active``: *Boolean* - Determines if destination will be synced to. ``true`` will copy files to destination, ``false`` will disable destination.
+	* ``ignoreNames``: *String* - regex expression for the files to ne ignored wich matches with name.
 
 ## Known Issues
 None currently known. Please [submit a ticket](https://github.com/CatStarwind/FileSync/issues/new) if any are encountered.

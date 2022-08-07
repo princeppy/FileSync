@@ -1,12 +1,12 @@
 {
 	"name": "filesync",
-	"version": "1.1.0",
-	"publisher": "CatStarwind",
+	"version": "2.0.0",
+	"publisher": "CatStarwind, Prince Park",
 	"engines": {
 		"vscode": "^1.44.0"
 	},
 	"license": "AGPL-3.0-or-later",
-	"displayName": "File Sync",
+	"displayName": "File Sync 2.0 (Adv)",
 	"description": "Sync a workbench folder's files when saving to specified destination folders.",
 	"categories": [
 		"Other"
@@ -25,11 +25,15 @@
 		"commands": [
 			{
 				"command": "filesync.enable",
-				"title": "File Sync: Enable"
+				"title": "File Sync 2.0: Enable"
 			},
 			{
 				"command": "filesync.disable",
-				"title": "File Sync: Disable"
+				"title": "File Sync 2.0: Disable"
+			},
+			{
+				"command": "filesync.test",
+				"title": "File Sync 2.0: Test"
 			}
 		],
 		"configuration": [
@@ -83,6 +87,14 @@
 															"active": {
 																"type": "boolean",
 																"title": "Determines if destination will be synced to."
+															},
+															"sourceStartPath": {
+																"type": "string",
+																"title": "Source Folder Within Workspace"
+															},
+															"ignoreNames": {
+																"type": "string",
+																"title": "Ignore FileName Expression"
 															}
 														},
 														"required": [
